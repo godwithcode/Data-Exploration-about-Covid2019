@@ -50,6 +50,8 @@ group by location,population
 order by TotalDeathCount desc
 
 -- Let's break things down by contient
+
+
 -- Showing contients with the highest death count per population
 
 Select continent, max(CONVERT(float, total_deaths)) as TotalDeathCount
@@ -77,12 +79,61 @@ order by 1,2
 
 
 --  Looking at Total Population vs Vaccinations
-select dea.continent, dea.location, (convert(DATE,dea.date,103)) Date, dea.population, vac.new_vaccinations
-, sum(convert(float,vac.new_vaccinations)) over (partition by dea.Location Order by dea.location, dea.Date)
+
+With PopvsVac (contient, location, date, population, new_vaccinations,RollingPeopleVaccinated)
+as
+(
+select dea.continent, dea.location, (convert(DATE,dea.date,103)) Date, convert(float,dea.population), convert(float,vac.new_vaccinations)
+, sum(convert(float,vac.new_vaccinations)) over (partition by dea.Location Order by dea.location, 
+(convert(DATE,dea.date,103))) as RollingPeopleVaccinated 
 from PortfolioProject..CovidDeaths dea
 join PortfolioProject..CovidVaccinations vac
 	On dea.location = vac.location
 	and dea.date = vac.date	
 where dea.continent <> ''
-order by 2,3
+--order by 2,3
+)
+select *, (RollingPeopleVaccinated/nullif(convert(float,population),0))*100
+from PopvsVac
 
+-- Get rid of date by using temp table
+
+drop table if exists #PercentPopulationVaccinated
+Create table #PercentPopulationVaccinated
+(
+continent nvarchar(255),
+location nvarchar(255),
+Date datetime,
+population numeric, 
+new_vaccinations numeric,
+RollingPeopleVaccinated numeric,
+)
+Insert into #PercentPopulationVaccinated
+select dea.continent, dea.location, (convert(DATE,dea.date,103)) Date, convert(float,dea.population), convert(float,vac.new_vaccinations)
+, sum(convert(float,vac.new_vaccinations)) over (partition by dea.Location Order by dea.location, 
+(convert(DATE,dea.date,103))) as RollingPeopleVaccinated 
+from PortfolioProject..CovidDeaths dea
+join PortfolioProject..CovidVaccinations vac
+	On dea.location = vac.location
+	and dea.date = vac.date	
+where dea.continent <> ''
+--order by 2,3
+
+select *, (RollingPeopleVaccinated/nullif(convert(float,population),0))*100
+from #PercentPopulationVaccinated
+
+
+-- Creating View to store data for later visualizations
+
+Create view PercentPopulationVaccinated as
+select dea.continent, dea.location, (convert(DATE,dea.date,103)) Date, convert(float,dea.population) Population, convert(float,vac.new_vaccinations) New_Vaccinations
+, sum(convert(float,vac.new_vaccinations)) over (partition by dea.Location Order by dea.location, 
+(convert(DATE,dea.date,103))) as RollingPeopleVaccinated 
+from PortfolioProject..CovidDeaths dea
+join PortfolioProject..CovidVaccinations vac
+	On dea.location = vac.location
+	and dea.date = vac.date	
+where dea.continent <> ''
+
+select * 
+from PercentPopulationVaccinated
