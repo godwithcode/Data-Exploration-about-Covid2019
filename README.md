@@ -1,5 +1,3 @@
-# Data Exploration about Covid 2019
-
 # 📊 Data Exploration about Covid 2019
 
 ## Overview
