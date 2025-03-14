@@ -1,37 +1,30 @@
 # Data Exploration about Covid 2019
 
-## Overview 
+# 📊 Data Exploration about Covid 2019
 
+## Overview
 This project focuses on exploring COVID-19 data using SQL for data extraction, transformation, and analysis. Tableau is used for visualizing key trends, patterns, and insights. The goal is to analyze the impact of COVID-19 globally and identify key metrics such as infection rates, mortality rates, and vaccination progress
 
- ## Technologies Used
-
-SQL: Data extraction, cleaning, and transformation.
-
-Tableau: Data visualization and dashboard creation.
-
-Database: SQL Server 
-
+## Data Source
 Dataset: COVID-19 data from https://ourworldindata.org/covid-deaths
 
-## Project Objectives
+## Tools & Libraries 🛠️
+- **Python** (Pandas, Matplotlib, Seaborn)
+- **SQL Server**
+- **Tableau**
 
-Data Cleaning: Handling missing values, duplicates, and inconsistencies.
+## Analysis & Insights 🔍
+- 📈 **Global Numbers** Deaths percentage is 2,11%.
+- ![image](https://github.com/user-attachments/assets/8797317c-e291-44da-a2bc-093f4160d29c)
 
-Data Exploration: Analyzing trends in cases, deaths, and vaccinations.
+- 🔎 The **Percent Population Infected** Forecasting results indicate that the U.S. has the highest increase in the percentage of the population infected, rising by 10.18%, while India has the lowest increase, at just 0.36%.
+  ![image](https://github.com/user-attachments/assets/82595655-90cb-4170-b30c-d5458fd26813)
 
-SQL Queries: Writing queries to derive key insights.
+## Results & Visualizations 📊
 
-Visualization: Creating dashboards to present findings effectively.
+📌 **Tableau Dashboard:** [View here](https://public.tableau.com/app/profile/minh.tri.phan.le/viz/VisualizationforCovid19/Dashboard1)
 
-## Dataset Description
-
-The dataset includes:
-
-Daily reported COVID-19 cases and deaths
-
-Testing and vaccination data
-
-Geographic information (countries, regions)
-
-Population metrics for context
+## How to Run 🖥️
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/yourusername/Data-Exploration-about-Covid2019.git
