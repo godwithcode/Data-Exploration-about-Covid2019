@@ -7,7 +7,6 @@ This project focuses on exploring COVID-19 data using SQL for data extraction, t
 Dataset: COVID-19 data from https://ourworldindata.org/covid-deaths
 
 ## Tools & Libraries 🛠️
-- **Python** (Pandas, Matplotlib, Seaborn)
 - **SQL Server**
 - **Tableau**
 
